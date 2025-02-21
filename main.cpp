@@ -34,4 +34,18 @@ private:
 public:
     Nota(const string &t, const string &te, string n) : titolo(t), testo(te), bloccata(false), NomeCollezione(n), importante(false){};
     ~Nota() {};
+    void blocca(){bloccata=true;};
+    void sblocca(){bloccata=false;};
+    void setTitolo(string t){
+        if (bloccata==true)
+            cout<<"la nota è bloccata, il suo titolo non è modificabile"<<endl;
+        else
+            titolo=t;
+    }
+    void setTesto(string t){
+        if (bloccata==true)
+            cout<<"la nota è bloccata, il suo testo non è modificabile"<<endl;
+        else
+            testo=t;
+    }
 };

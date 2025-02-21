@@ -24,15 +24,17 @@ public:
     virtual void notifyObserver()=0;
 };
 
+class Collection;
+
 class Nota {
 private:
     string titolo;
     string testo;
     bool bloccata;
-    string NomeCollezione;
+    Collection* NomeCollezione;
     bool importante;
 public:
-    Nota(const string &t, const string &te, string n) : titolo(t), testo(te), bloccata(false), NomeCollezione(n), importante(false){};
+    Nota(const string &t, const string &te, Collection* n) : titolo(t), testo(te), bloccata(false), NomeCollezione(n), importante(false){};
     ~Nota() {};
     void blocca(){bloccata=true;};
     void sblocca(){bloccata=false;};
@@ -83,4 +85,20 @@ public:
         }
     }
 
+};
+
+class Counter: public Observer {
+private:
+    int count;
+    Collezione* c;
+public:
+    Counter(Collezione* co): count(0), c(co){
+        c->addObserver(this);
+    };
+    ~Counter(){
+        c->removeObserver(this);
+    };
+    void update() override{
+        cout<<"Il numero di note nella collezione è: "<<count<<endl;
+    }
 };

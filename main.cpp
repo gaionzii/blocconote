@@ -140,3 +140,5 @@ public:
         cout<<"Il numero di note nella collezione " << s <<" è: "<<count<<endl;
     }
 };
+
+Counter* importante= new Counter(NoteImportanti);

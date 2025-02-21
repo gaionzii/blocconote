@@ -137,8 +137,32 @@ public:
         c->removeObserver(this);
     };
     void update(bool a, const string& s) override{
+        if (a==true)
+            count++;
+        else
+            count--;
         cout<<"Il numero di note nella collezione " << s <<" è: "<<count<<endl;
     }
 };
 
 Counter* importante= new Counter(NoteImportanti);
+
+int main(){
+    string a = "lavoro";
+    string b = "studio";
+    Nota* n1 = new Nota("Progetto", "descrizione 1", a);
+    Collezione* c1 = new Collezione(a);
+    Counter* count1= new Counter(c1);
+    c1->addNota(n1);
+    Nota* n2= new Nota("Scavi", "descrizione 2", a);
+    c1->addNota(n2);
+    c1->removeNota(n1);
+    Nota* n3= new Nota("Compiti", "testo", b);
+    Collezione* c2= new Collezione(b);
+    Counter* count2= new Counter(c2);
+    c2->addNota(n3);
+    n2->blocca();
+    n2->setTitolo("modifica");
+    n2->setImportante(true);
+    n1->setImportante(true);
+}

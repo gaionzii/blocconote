@@ -111,6 +111,20 @@ public:
     }
 };
 
+ImportantNotes* NoteImportanti= new ImportantNotes("Note Importanti");
+
+void Nota:: setImportante(bool a){
+    if (bloccata==true)
+        cout<<"la nota è bloccata, non può essere aggiunta alle note importanti"<<endl;
+    else {
+        importante = a;
+        if (importante == true)
+            NoteImportanti->addNota(this);
+        else
+            NoteImportanti->removeNota(this);
+    }
+}
+
 class Counter: public Observer {
 private:
     int count;

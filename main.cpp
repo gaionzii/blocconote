@@ -24,18 +24,17 @@ public:
     virtual void notifyObserver()=0;
 };
 
-class Collection;
-
 class Nota {
 private:
     string titolo;
     string testo;
     bool bloccata;
-    Collection* NomeCollezione;
+    string NomeCollezione;
     bool importante;
 public:
-    Nota(const string &t, const string &te, Collection* n) : titolo(t), testo(te), bloccata(false), NomeCollezione(n), importante(false){};
+    Nota(const string &t, const string &te, const string& n) : titolo(t), testo(te), bloccata(false), NomeCollezione(n), importante(false){};
     ~Nota() {};
+    void setImportante(bool a);
     void blocca(){bloccata=true;};
     void sblocca(){bloccata=false;};
     void setTitolo(string t){
@@ -85,6 +84,31 @@ public:
         }
     }
 
+};
+
+class ImportantNotes: public Collezione {
+private:
+    list<Nota*> importanti;
+public:
+    ImportantNotes(const string& n): Collezione(n){
+        nome=n;
+    };
+    ~ImportantNotes(){};
+    void addNota(Nota* n){
+        importanti.push_back(n);
+        bool a=true;
+        notifyObserver();
+    }
+    void removeNota(Nota* n){
+        importanti.remove(n);
+        if (n->getBloccata()==true)
+            cout<<"la nota è bloccata, non può rimossa dalle note importanti";
+        else {
+            n->setImportante(false);
+            bool a=false;
+            notifyObserver();
+        }
+    }
 };
 
 class Counter: public Observer {

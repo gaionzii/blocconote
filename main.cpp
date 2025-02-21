@@ -23,3 +23,15 @@ public:
     virtual void removeObserver(Observer* o)=0;
     virtual void notifyObserver()=0;
 };
+
+class Nota {
+private:
+    string titolo;
+    string testo;
+    bool bloccata;
+    string NomeCollezione;
+    bool importante;
+public:
+    Nota(const string &t, const string &te, string n) : titolo(t), testo(te), bloccata(false), NomeCollezione(n), importante(false){};
+    ~Nota() {};
+};

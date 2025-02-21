@@ -48,4 +48,39 @@ public:
         else
             testo=t;
     }
+    bool getBloccata(){return bloccata;}
+};
+
+class Collezione: public Subject{
+private:
+    list<Nota*> note;
+    list<Observer*> obs;
+protected:
+    string nome;
+public:
+    Collezione(const string& n): nome(n){};
+    ~Collezione(){};
+    void addNota(Nota* n){
+        note.push_back(n);
+        bool a=true;
+        notifyObserver();
+    }
+    void removeNota(Nota* n){
+        if (n->getBloccata()==true)
+            cout<<"la nota è bloccata, non può essere cancellata";
+        else {
+            note.remove(n);
+            bool a=false;
+            notifyObserver();
+        }
+    }
+
+    virtual void addObserver(Observer* o) override{obs.push_back(o);};
+    virtual void removeObserver(Observer* o) override{obs.remove(o);};
+    virtual void notifyObserver() override{
+        for(auto i: obs){
+            i->update();
+        }
+    }
+
 };

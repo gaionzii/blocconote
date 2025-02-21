@@ -11,7 +11,7 @@ using namespace std;
 class Observer {
 public:
     ~Observer() {};
-    virtual void update() = 0;
+    virtual void update(bool a, const string& s) = 0;
 };
 
 class Subject {
@@ -21,7 +21,7 @@ public:
     virtual ~Subject() {};
     virtual void addObserver(Observer* o)=0;
     virtual void removeObserver(Observer* o)=0;
-    virtual void notifyObserver()=0;
+    virtual void notifyObserver(bool a, const string& s)=0;
 };
 
 class Nota {
@@ -64,7 +64,7 @@ public:
     void addNota(Nota* n){
         note.push_back(n);
         bool a=true;
-        notifyObserver();
+        notifyObserver(a, nome);
     }
     void removeNota(Nota* n){
         if (n->getBloccata()==true)
@@ -72,15 +72,15 @@ public:
         else {
             note.remove(n);
             bool a=false;
-            notifyObserver();
+            notifyObserver(a, nome);
         }
     }
 
     virtual void addObserver(Observer* o) override{obs.push_back(o);};
     virtual void removeObserver(Observer* o) override{obs.remove(o);};
-    virtual void notifyObserver() override{
+    virtual void notifyObserver(bool a, const string& s) override{
         for(auto i: obs){
-            i->update();
+            i->update(a, s);
         }
     }
 
@@ -97,7 +97,7 @@ public:
     void addNota(Nota* n){
         importanti.push_back(n);
         bool a=true;
-        notifyObserver();
+        notifyObserver(a, nome);
     }
     void removeNota(Nota* n){
         importanti.remove(n);
@@ -106,7 +106,7 @@ public:
         else {
             n->setImportante(false);
             bool a=false;
-            notifyObserver();
+            notifyObserver(a, nome);
         }
     }
 };
@@ -122,7 +122,7 @@ public:
     ~Counter(){
         c->removeObserver(this);
     };
-    void update() override{
-        cout<<"Il numero di note nella collezione è: "<<count<<endl;
+    void update(bool a, const string& s) override{
+        cout<<"Il numero di note nella collezione " << s <<" è: "<<count<<endl;
     }
 };

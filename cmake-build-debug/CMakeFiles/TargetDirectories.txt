@@ -1,0 +1,3 @@
+/Users/gaia/CLionProjects/blocconote/cmake-build-debug/CMakeFiles/blocconote.dir
+/Users/gaia/CLionProjects/blocconote/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/gaia/CLionProjects/blocconote/cmake-build-debug/CMakeFiles/rebuild_cache.dir
